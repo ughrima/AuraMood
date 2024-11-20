@@ -1,75 +1,141 @@
-AuraMood: Audio Emotion Classification from Multiple Datasets
-AuraMood is a deep learning-based emotion classification system that predicts the emotional state of a speaker from audio files. By leveraging two different emotion-labeled datasets, RAVDESS (Ryerson Audio-Visual Database of Emotional Speech and Song) and TESS (Toronto Emotional Speech Set), this project aims to identify emotions in spoken language with an overall F1 score of 80% across 8 distinct emotional classes: neutral, calm, happy, sad, angry, fearful, disgust, and surprised.
+# AuraMood: Audio Emotion Classification from Multiple Datasets
 
-Dataset Information
-This system is built using two key datasets:
+AuraMood is a deep learning-based emotion classification system designed to predict the emotional state of a speaker from audio files. By leveraging two distinct emotion-labeled datasets—RAVDESS (Ryerson Audio-Visual Database of Emotional Speech and Song) and TESS (Toronto Emotional Speech Set)—AuraMood achieves an **F1 score of 80%** across 8 distinct emotional classes: **Neutral, Calm, Happy, Sad, Angry, Fearful, Disgust, and Surprised**.
 
-RAVDESS (Ryerson Audio-Visual Database of Emotional Speech and Song)
+---
 
-Includes 1440 speech and 1012 song audio files with emotional expressions from 24 actors (12 male, 12 female).
-Emotions covered: Calm, Happy, Sad, Angry, Fearful, Surprise, Disgust (for speech), and Calm, Happy, Sad, Angry, Fearful (for songs).
-Available at: RAVDESS Dataset.
-TESS (Toronto Emotional Speech Set)
+## **Features**
+- **Emotion Classification**: Detects emotions in speech and song audio files.
+- **Multi-Dataset Integration**: Combines RAVDESS and TESS datasets for robust training.
+- **8-Class Classification**: Covers a wide range of emotions.
+- **Pre-trained Models**: Ready-to-use models for prediction.
+- **Custom Predictions**: Test with your own audio files.
 
-Contains 2800 speech files across seven emotions: Anger, Disgust, Fear, Happiness, Pleasant Surprise, Sadness, and Neutral.
-Available at: TESS Dataset.
-Emotions to Classify
-0 = Neutral
-1 = Calm
-2 = Happy
-3 = Sad
-4 = Angry
-5 = Fearful
-6 = Disgust
-7 = Surprised
-Due to the skewed nature of the TESS dataset (absence of a calm class), this model may perform with slightly less accuracy in predicting the calm emotion.
+---
 
-Model Performance
-The model is a deep learning classifier designed to predict the emotional state of a speaker. It achieves an F1 score of 80% on the 8-class emotion classification task.
+## **Datasets**
 
-Model Summary
+### **1. RAVDESS (Ryerson Audio-Visual Database of Emotional Speech and Song)**
+- **Overview**:
+  - 1440 speech and 1012 song audio files.
+  - Performed by 24 actors (12 male, 12 female).
+- **Emotions Covered**:
+  - Speech: Calm, Happy, Sad, Angry, Fearful, Surprise, Disgust.
+  - Songs: Calm, Happy, Sad, Angry, Fearful.
+- **Download**: [RAVDESS Dataset](https://zenodo.org/record/1188976)
 
-Loss and Accuracy Plots
+### **2. TESS (Toronto Emotional Speech Set)**
+- **Overview**:
+  - 2800 speech files.
+  - Spoken by 2 female actors.
+- **Emotions Covered**:
+  - Neutral, Anger, Disgust, Fear, Happiness, Pleasant Surprise, Sadness.
+- **Download**: [TESS Dataset](https://tspace.library.utoronto.ca/handle/1807/24487)
 
-Classification Report
+**Note**: The TESS dataset lacks a Calm emotion class, which may affect accuracy for this category.
 
-Confusion Matrix
+---
 
-Setup & Installation
-Clone the repository:
+## **Emotions to Classify**
+| **Label** | **Emotion**      |
+|-----------|------------------|
+| 0         | Neutral          |
+| 1         | Calm             |
+| 2         | Happy            |
+| 3         | Sad              |
+| 4         | Angry            |
+| 5         | Fearful          |
+| 6         | Disgust          |
+| 7         | Surprised        |
 
-bash
-Copy code
+---
+
+## **Model Performance**
+- **F1 Score**: **80%** for the 8-class emotion classification task.
+- Includes **Loss and Accuracy Plots**, **Classification Report**, and **Confusion Matrix** for detailed performance metrics.
+
+---
+
+## **Setup and Installation**
+
+### **Step 1: Clone the Repository**
+```bash
 git clone https://github.com/yourusername/AuraMood.git
 cd AuraMood
-Optional: Download Datasets:
+```
 
-RAVDESS: Download the audio files and unzip them into the features folder.
-TESS: Download and unzip the dataset into the TESS_Toronto_emotional_speech_set_data folder.
-Prepare Data (Optional):
+### **Step 2: Download Datasets (Optional)**
+- **RAVDESS**: Download and unzip audio files into the `features` folder.
+- **TESS**: Download and unzip into the `TESS_Toronto_emotional_speech_set_data` folder.
 
-Run tess_pipeline.py to organize the TESS dataset into the correct folder structure.
-If you want to create new features, run create_features.py. However, the pre-generated features are available in the features folder.
-Train the Model (Optional):
+### **Step 3: Prepare Data (Optional)**
+- To organize the TESS dataset:
+  ```bash
+  python tess_pipeline.py
+  ```
+- To create new features (optional, pre-generated features are included):
+  ```bash
+  python create_features.py
+  ```
 
-If you want to train a new model, run:
-bash
-Copy code
-python neural_network.py
-Pre-trained models are available in the model folder, so training may not be necessary.
-How to Test the Model
-To test the model with new audio files:
+### **Step 4: Train the Model (Optional)**
+- To train a new model:
+  ```bash
+  python neural_network.py
+  ```
+- Pre-trained models are available in the `model` folder, so training is optional.
 
-Place your test audio file in the examples folder.
-Run the prediction script to classify the emotion:
-bash
-Copy code
-python predict.py --audio_file path/to/audio_file.wav
-The model will predict one of the following emotions: Neutral, Calm, Happy, Sad, Angry, Fearful, Disgust, or Surprised.
-Note: The classes in the code are encoded from 0 to 7, corresponding to the emotion labels in the dataset (01 to 08 in the original dataset). So, if the model predicts 0, it corresponds to the Neutral class.
+---
 
-Example Predictions
-03-01-01-01-01-02-05.wav: This is a neutral audio file, but the model predicts calm. Listen to the audio and verify if the emotion prediction seems reasonable.
-10-16-07-29-82-30-63.wav: A disgust file, where the model performs as expected.
-Contributing
-Feel free to contribute to AuraMood by submitting pull requests or reporting issues. Any improvements or additions are welcome, especially related to handling more diverse emotion categories or adding additional datasets.
+## **Testing the Model**
+
+### **Step 1: Test with Custom Audio Files**
+1. Place your test audio file in the `examples` folder.
+2. Run the prediction script:
+   ```bash
+   python predict.py --audio_file path/to/audio_file.wav
+   ```
+
+### **Output**
+The model predicts one of the following emotions:
+- **Neutral**
+- **Calm**
+- **Happy**
+- **Sad**
+- **Angry**
+- **Fearful**
+- **Disgust**
+- **Surprised**
+
+The prediction classes correspond to the encoded labels (0-7). For example:
+- **0 = Neutral**
+- **1 = Calm**
+
+### **Example Predictions**
+- **File**: `03-01-01-01-01-02-05.wav`
+  - Expected Emotion: Neutral
+  - Model Prediction: Calm (check audio to verify reasonableness).
+- **File**: `10-16-07-29-82-30-63.wav`
+  - Expected Emotion: Disgust
+  - Model Prediction: Disgust (accurate).
+
+---
+
+## **Contributing**
+We welcome contributions to improve AuraMood! Suggestions for:
+- Enhancing model performance.
+- Adding new emotion categories.
+- Integrating additional datasets.
+
+To contribute:
+1. Fork the repository.
+2. Create a new branch.
+3. Submit a pull request with a clear description of changes.
+
+---
+
+## **Future Enhancements**
+- Expanding to multilingual datasets.
+- Supporting real-time emotion detection.
+- Addressing dataset imbalance for Calm and other under-represented emotions.
+
